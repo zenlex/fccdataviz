@@ -32,7 +32,11 @@ main {
   font-size: 32px;
 }
 
-.container {
+/*===============
+ BAR CHART 
+ ===============*/
+
+.barchart {
   margin: 0 auto;
   padding: 5px;
   background-color: greenyellow;
