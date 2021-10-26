@@ -7,6 +7,7 @@ const url =
 
 const width = 600; //change this width/height to be responsive
 const height = 400;
+const padding = 60;
 
 const svg = d3
   .select(".barchart")
@@ -28,11 +29,16 @@ fetchData(url);
 
 const updateChart = (data) => {
   //scaling
-  const barWidth = width / (data.length + 2);
+  const barWidth = (width - padding) / (data.length + 2);
   const yScale = d3
     .scaleLinear()
     .domain([0, d3.max(data, (d) => d[1])])
-    .range([0, height]);
+    .range([0, height - padding]);
+
+  const xScale = d3 //TODO: convert the labeling/ticks to dates and replace temp values
+    .scaleLinear()
+    .domain([1, 100])
+    .range([padding, width - padding]);
 
   //render data
   svg
@@ -43,13 +49,21 @@ const updateChart = (data) => {
     .attr("width", barWidth)
     .attr("height", (d) => yScale(d[1]))
     .attr("x", (d, i) => i * barWidth + 2)
-    .attr("y", (d) => height - yScale(d[1]))
+    .attr("y", (d) => height - padding - yScale(d[1]))
     .attr("class", "bar");
-};
 
-//label
-//TODO: create axis ticks w/labels
-//TODO: create axis labels/headings
+  //create axes
+  const xAxis = d3.axisBottom(xScale);
+  const yAxis = d3.axisLeft(yScale);
+  svg
+    .append("g")
+    .attr("transform", `translate(0, ${height - padding})`)
+    .call(xAxis);
+
+  svg.append("g").attr("transform", `translate(${padding}, 0)`).call(yAxis);
+
+  //TODO: correct axes labels/ticks to be the correct range/units/intervals
+};
 
 //style
 //TODO: create hover state with tooltip
