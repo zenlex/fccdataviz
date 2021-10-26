@@ -42,15 +42,17 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: greenyellow;
-  width: 650px;
+  background-color: lightgrey;
 }
 
 .chart-svg {
-  background-color: lightskyblue;
+  background-color: white;
 }
 
 .bar {
-  background-color: blue;
-  padding: 1px;
+  fill: blue;
+}
+
+.bar:hover {
+  fill: green;
 }

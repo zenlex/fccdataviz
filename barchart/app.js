@@ -16,34 +16,42 @@ const svg = d3
   .attr("align", "center")
   .attr("class", "chart-svg");
 
-//get data
 const fetchData = (url) => {
   return fetch(url)
     .then((response) => response.json())
     .then((json) => {
-      updateChart(svg, json.data);
+      updateChart(json.data);
     });
 };
 
 fetchData(url);
 
-const updateChart = (svg, data) => {
-  const barWidth = Math.floor(width / data.length);
-  console.log(`barWidth: ${barWidth}`);
+const updateChart = (data) => {
+  //scaling
+  const barWidth = width / (data.length + 2);
+  const yScale = d3
+    .scaleLinear()
+    .domain([0, d3.max(data, (d) => d[1])])
+    .range([0, height]);
+
+  //render data
   svg
     .selectAll("rect")
     .data(data)
     .enter()
     .append("rect")
     .attr("width", barWidth)
-    .attr("height", (d) => d[1] / 10)
-    .attr("x", (d, i) => i * (barWidth + 1))
-    .attr("y", (d) => height - d[1] / 50);
+    .attr("height", (d) => yScale(d[1]))
+    .attr("x", (d, i) => i * barWidth + 2)
+    .attr("y", (d) => height - yScale(d[1]))
+    .attr("class", "bar");
 };
-//map data to d3
-
-//map data to rectangles
-
-//style
 
 //label
+//TODO: create axis ticks w/labels
+//TODO: create axis labels/headings
+
+//style
+//TODO: create hover state with tooltip
+//TODO: clean up overall page styling
+//TODO[optional/TBD]: make responsive - could just tag this as an issue for later....? May not work well with the scale of the dataset below certain display sizes
