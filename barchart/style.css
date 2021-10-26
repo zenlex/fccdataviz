@@ -16,7 +16,7 @@ body {
 
 main {
   width: 90vw;
-  height: 100vh;
+  height: auto;
   margin: 0 auto;
   background-color: white;
   box-shadow: 5px 5px 10px 5px var(--shadow-dk);
@@ -39,5 +39,18 @@ main {
 .barchart {
   margin: 0 auto;
   padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: greenyellow;
+  width: 650px;
+}
+
+.chart-svg {
+  background-color: lightskyblue;
+}
+
+.bar {
+  background-color: blue;
+  padding: 1px;
 }
