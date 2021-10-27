@@ -56,6 +56,8 @@ const updateChart = (data) => {
     .attr("height", (d) => height - yScale(d[1]) - padding)
     .attr("x", (d, i) => padding + (i * barWidth + 2))
     .attr("y", (d) => yScale(d[1]))
+    .attr("data-date", (d) => d[0])
+    .attr("data-gdp", (d) => d[1])
     .attr("class", "bar");
 
   //create axes
@@ -72,8 +74,6 @@ const updateChart = (data) => {
     .attr("transform", `translate(${padding}, 0)`)
     .attr("id", "y-axis")
     .call(yAxis);
-
-  //TODO: correct alignment of axes/svg rectangles (tests fail)
 };
 
 //TODO: add dataset attributes to svg rect data points per user stories
