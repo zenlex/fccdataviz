@@ -64,14 +64,19 @@ const updateChart = (data) => {
   svg
     .append("g")
     .attr("transform", `translate(0, ${height - padding})`)
+    .attr("id", "x-axis")
     .call(xAxis.ticks(d3.timeYear.every(10)));
 
-  svg.append("g").attr("transform", `translate(${padding}, 0)`).call(yAxis);
+  svg
+    .append("g")
+    .attr("transform", `translate(${padding}, 0)`)
+    .attr("id", "y-axis")
+    .call(yAxis);
 
-  //TODO: correct axes labels/ticks to be the correct range/units/intervals
+  //TODO: correct alignment of axes/svg rectangles (tests fail)
 };
 
-//style
+//TODO: add dataset attributes to svg rect data points per user stories
 //TODO: create hover state with tooltip
 //TODO: clean up overall page styling
 //TODO[optional/TBD]: make responsive - could just tag this as an issue for later....? May not work well with the scale of the dataset below certain display sizes
