@@ -29,15 +29,21 @@ fetchData(url);
 
 const updateChart = (data) => {
   //scaling
-  const barWidth = (width - padding) / (data.length + 2);
+  const barWidth = (width - 2 * padding) / (data.length + 2);
   const yScale = d3
     .scaleLinear()
     .domain([0, d3.max(data, (d) => d[1])])
-    .range([0, height - padding]);
+    .range([height - padding, padding]);
 
-  const xScale = d3 //TODO: convert the labeling/ticks to dates and replace temp values
-    .scaleLinear()
-    .domain([1, 100])
+  const parseTime = d3.timeParse("%Y-%m-%d");
+  const dates = [];
+  for (let arr of data) {
+    dates.push(parseTime(arr[0]));
+  }
+
+  const xScale = d3
+    .scaleTime()
+    .domain(d3.extent(dates))
     .range([padding, width - padding]);
 
   //render data
@@ -47,9 +53,9 @@ const updateChart = (data) => {
     .enter()
     .append("rect")
     .attr("width", barWidth)
-    .attr("height", (d) => yScale(d[1]))
-    .attr("x", (d, i) => i * barWidth + 2)
-    .attr("y", (d) => height - padding - yScale(d[1]))
+    .attr("height", (d) => height - yScale(d[1]) - padding)
+    .attr("x", (d, i) => padding + (i * barWidth + 2))
+    .attr("y", (d) => yScale(d[1]))
     .attr("class", "bar");
 
   //create axes
@@ -58,7 +64,7 @@ const updateChart = (data) => {
   svg
     .append("g")
     .attr("transform", `translate(0, ${height - padding})`)
-    .call(xAxis);
+    .call(xAxis.ticks(d3.timeYear.every(10)));
 
   svg.append("g").attr("transform", `translate(${padding}, 0)`).call(yAxis);
 
