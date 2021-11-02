@@ -74,9 +74,18 @@ const updateChart = (data) => {
     .attr("transform", `translate(${padding}, 0)`)
     .attr("id", "y-axis")
     .call(yAxis);
+
+  //label axes
+  svg
+    .append("g")
+    .attr("class", "axis-label")
+    .attr("transform", `translate(${padding + 20}, ${height / 2})`)
+    .append("text")
+    .attr("text-anchor", "middle")
+    .attr("transform", "rotate(-90)")
+    .text("Gross Domestic Product (Billions)");
 };
 
-//TODO: add dataset attributes to svg rect data points per user stories
 //TODO: create hover state with tooltip
 //TODO: clean up overall page styling
 //TODO[optional/TBD]: make responsive - could just tag this as an issue for later....? May not work well with the scale of the dataset below certain display sizes
