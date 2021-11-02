@@ -56,3 +56,8 @@ main {
 .bar:hover {
   fill: green;
 }
+
+.tooltip {
+  background-color: darkgray;
+  position: absolute;
+}

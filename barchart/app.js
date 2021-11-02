@@ -5,8 +5,8 @@ const url =
 
 //create svg
 
-const width = 600; //change this width/height to be responsive
-const height = 400;
+const width = 1000; //change this width/height to be responsive
+const height = 600;
 const padding = 60;
 
 const svg = d3
@@ -29,7 +29,7 @@ fetchData(url);
 
 const updateChart = (data) => {
   //scaling
-  const barWidth = (width - 2 * padding) / (data.length + 2);
+  const barWidth = (width - 2 * padding) / data.length;
   const yScale = d3
     .scaleLinear()
     .domain([0, d3.max(data, (d) => d[1])])
@@ -46,6 +46,14 @@ const updateChart = (data) => {
     .domain(d3.extent(dates))
     .range([padding, width - padding]);
 
+  //create tooltip div
+  const tip = d3
+    .select("body")
+    .append("div")
+    .attr("class", "tooltip")
+    .attr("id", "tooltip")
+    .style("opacity", 0);
+
   //render data
   svg
     .selectAll("rect")
@@ -54,11 +62,22 @@ const updateChart = (data) => {
     .append("rect")
     .attr("width", barWidth)
     .attr("height", (d) => height - yScale(d[1]) - padding)
-    .attr("x", (d, i) => padding + (i * barWidth + 2))
+    .attr("x", (d, i) => padding + i * barWidth)
     .attr("y", (d) => yScale(d[1]))
     .attr("data-date", (d) => d[0])
     .attr("data-gdp", (d) => d[1])
-    .attr("class", "bar");
+    .attr("class", "bar")
+    .on("mouseover", (e, d) => {
+      tip.transition().duration(100).style("opacity", 0.9);
+      tip
+        .html(`<h1>${d[0]}</h1><br><h2>$${d[1]} Billion</h2>`)
+        .style("left", e.pageX + 30 + "px")
+        .style("top", height - padding - 120 + "px")
+        .attr("data-date", e.target.dataset.date);
+    })
+    .on("mouseout", (d) => {
+      tip.transition().duration(200).style("opacity", 0);
+    });
 
   //create axes
   const xAxis = d3.axisBottom(xScale);
@@ -67,7 +86,7 @@ const updateChart = (data) => {
     .append("g")
     .attr("transform", `translate(0, ${height - padding})`)
     .attr("id", "x-axis")
-    .call(xAxis.ticks(d3.timeYear.every(10)));
+    .call(xAxis.ticks(d3.timeYear.every(5)));
 
   svg
     .append("g")
@@ -85,7 +104,3 @@ const updateChart = (data) => {
     .attr("transform", "rotate(-90)")
     .text("Gross Domestic Product (Billions)");
 };
-
-//TODO: create hover state with tooltip
-//TODO: clean up overall page styling
-//TODO[optional/TBD]: make responsive - could just tag this as an issue for later....? May not work well with the scale of the dataset below certain display sizes
