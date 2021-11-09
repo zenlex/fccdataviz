@@ -27,13 +27,13 @@ function updateGraph(data) {
   //create scales//
   let years = [];
   let seconds = [];
-  for (let entry of data){
+  for (let entry of data) {
     years.push(entry.Year);
     seconds.push(entry.Seconds);
   }
-  
+
   //x-axis scale
-  const xScale = d3.scaleLinear(d3.extent(years), [0,w]);
+  const xScale = d3.scaleLinear(d3.extent(years), [0, w]);
 
   //y-axis scale
   const yScale = d3.scaleLinear(d3.extent(seconds), [0, h])
@@ -41,5 +41,16 @@ function updateGraph(data) {
   const r = 5
 
 
- graph.selectAll("circle").data(data).enter().append("circle").attr("r", 5).attr("cx", d=>xScale(d.Year)).attr("cy", d=>yScale(d.Seconds)).style("fill", "red")
+  graph.selectAll("circle")
+  .data(data)
+  .enter()
+  .append("circle")
+  .attr("r", 5)
+  .attr("cx", d => xScale(d.Year))
+  .attr("cy", d => yScale(d.Seconds))
+  .attr("data-xvalue", d => d.Year)
+  .attr("data-yvalue", d=> d.Seconds)
+  .style("fill", "red")
+  .attr("class", "dot")
+
 }
