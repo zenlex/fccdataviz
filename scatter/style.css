@@ -3,3 +3,21 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+header{
+  padding-top:10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.graph-container{
+  display:flex;
+  padding: 10px;
+  margin: 0 auto;
+  justify-content: center;
+  height: auto;
+  box-shadow: 1px 1px 10px rgba(0,0,0,0.25);
+}
