@@ -23,6 +23,9 @@ header{
 }
 
 #legend {
-  fill: lightgrey;
-  stroke:royalblue;
+  font-size: medium;
+}
+
+.legend-label{
+  text-anchor:end;
 }

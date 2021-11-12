@@ -1,0 +1,24 @@
+{
+  "name": "fccdataviz",
+  "version": "1.0.0",
+  "description": "Free Code Camp Data Viz with D3 Projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zenlex/fccdataviz.git"
+  },
+  "author": "Erich Keil aka zenlex",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zenlex/fccdataviz/issues"
+  },
+  "homepage": "https://github.com/zenlex/fccdataviz#readme",
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3"
+  }
+}
