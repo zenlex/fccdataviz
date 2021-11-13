@@ -35,6 +35,10 @@ function updateGraph(data) {
   yScale.domain([d3.min(seconds), d3.max(seconds).setSeconds(d3.max(seconds).getSeconds() + 5)]);
   const yAxis = d3.axisLeft(yScale);
 
+  const tip = d3.select('.graph-container').append('div')
+    .attr('id', 'tooltip')
+    .style('opacity', 0);
+
   // render data
   graph.selectAll('circle')
     .data(data)
@@ -46,7 +50,16 @@ function updateGraph(data) {
     .attr('data-xvalue', (d) => d.Year)
     .attr('data-yvalue', (d, i) => seconds[i])
     .style('fill', (d) => `${d.Doping ? 'red' : 'blue'}`)
-    .attr('class', 'dot');
+    .attr('class', 'dot')
+    .on('mouseover', (e, d) => {
+      tip.attr('data-year', d.Year)
+        .style('left', `${e.clientX + 5}px`).style('top', `${e.clientY}px`);
+      tip.transition().duration(100).style('opacity', 0.9);
+      tip.html(`<h4>${d.Name}</h4><h4>Time:${d.Time}</h4><h4>Year:${d.Year}</h4><h4>Place: ${d.Place}</h4><h4>Nationality: ${d.Nationality}</h4><a href=${d.URL}> <h4>${d.Doping}</h4></a>`);
+    })
+    .on('mouseout', () => {
+      tip.transition().duration(200).style('opacity', 0);
+    });
 
   // append axes
   graph.append('g').attr('id', 'x-axis')
