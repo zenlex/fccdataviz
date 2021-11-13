@@ -1,0 +1,15 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+section {
+  margin: 60px auto;
+  display: flex;
+  justify-content: center;
+}
+
+heading * {
+  text-align: center;
+}
