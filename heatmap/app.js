@@ -39,8 +39,8 @@ function render(data) {
     .range([0, width]);
 
   const yScale = d3.scaleTime()
-    .domain([new Date(2021, 0), new Date(2021, 11)])
-    .range([0, height - 2 * padding]);
+    .domain([new Date(2021, -1, 15), new Date(2021, 11, 15)])
+    .range([height - 2 * padding, 0]);
 
   const xAxis = d3.axisBottom(xScale);
   const yAxis = d3.axisLeft(yScale).tickFormat(d3.timeFormat('%B'));
@@ -52,5 +52,22 @@ function render(data) {
 
   svg.append('g').attr('transform', `translate(${padding}, ${padding})`).attr('id', 'y-axis').call(yAxis);
 
-  svg.append('y');
+  /* ------------------------
+    RENDER DATA CELLS
+  -------------------------*/
+  const cellHeight = (height - 2 * padding) / 12;
+  const cellWidth = (width / data.monthlyVariance.length) * 12;
+
+  svg.selectAll('rect')
+    .data(data.monthlyVariance)
+    .enter()
+    .append('rect')
+    .attr('width', cellWidth)
+    .attr('height', cellHeight)
+    .attr('x', (d) => xScale(new Date(d.year, 0)) + padding)
+    .attr('y', (d) => yScale(new Date(2021, d.month - 1)) + padding - (cellHeight / 2))
+    .attr('class', 'cell')
+    .attr('data-month', (d) => d.month - 1)
+    .attr('data-year', (d) => d.year)
+    .attr('data-temp', (d) => data.baseTemperature + d.variance);
 } // end render function

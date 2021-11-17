@@ -7,9 +7,15 @@
 section {
   margin: 60px auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
 heading * {
   text-align: center;
+}
+
+.cell {
+  fill:red;
+  stroke: indigo;
 }
