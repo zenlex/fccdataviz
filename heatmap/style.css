@@ -9,13 +9,17 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: visible;
 }
 
 heading * {
   text-align: center;
 }
 
-.cell {
-  fill:red;
-  stroke: indigo;
+#legend{
+  stroke:red;
+}
+
+.lc {
+  stroke:green;
 }

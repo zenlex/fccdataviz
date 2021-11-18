@@ -12,6 +12,19 @@ d3.json(url)
 
 function render(data) {
   console.log('Data:', data);
+
+  const colors = ['#d73027', '#f46d43', '#fdae61', '#fee090', '#ffffbf', '#e0f3f8', '#abd9e9', '#74add1', '#4575b4'];
+
+  function mapColor(v) {
+    const shades = colors.length;
+
+    const colorScale = d3.scaleLinear()
+      .domain(d3.extent(data.monthlyVariance.map(({ variance }) => variance))).range([shades, 0]);
+
+    const index = Math.round(colorScale(v));
+    return colors[index];
+  }
+
   const section = d3.select('body').append('section');
 
   //  / GRAPH HEADER /  //
@@ -28,7 +41,8 @@ function render(data) {
   /*--------------------------------------
   CREATE AXES & SCALES
  ---------------------------------------*/
-  const height = 400;
+  const mapHeight = 400;
+  const svgHeight = 540;
   const width = 1200;
   const padding = 60;
 
@@ -40,25 +54,25 @@ function render(data) {
 
   const yScale = d3.scaleTime()
     .domain([new Date(2021, -1, 15), new Date(2021, 11, 15)])
-    .range([height - 2 * padding, 0]);
+    .range([mapHeight - 2 * padding, 0]);
 
   const xAxis = d3.axisBottom(xScale);
   const yAxis = d3.axisLeft(yScale).tickFormat(d3.timeFormat('%B'));
 
   const svg = section.append('svg').attr('x', 0).attr('y', 0).attr('width', width)
-    .attr('height', height);
+    .attr('height', svgHeight);
 
-  svg.append('g').attr('transform', `translate(${padding},${height - padding})`).attr('id', 'x-axis').call(xAxis);
+  svg.append('g').attr('transform', `translate(${padding},${mapHeight - padding})`).attr('id', 'x-axis').call(xAxis);
 
   svg.append('g').attr('transform', `translate(${padding}, ${padding})`).attr('id', 'y-axis').call(yAxis);
 
   /* ------------------------
     RENDER DATA CELLS
   -------------------------*/
-  const cellHeight = (height - 2 * padding) / 12;
+  const cellHeight = (mapHeight - 2 * padding) / 12;
   const cellWidth = (width / data.monthlyVariance.length) * 12;
 
-  svg.selectAll('rect')
+  svg.append('g').selectAll('rect')
     .data(data.monthlyVariance)
     .enter()
     .append('rect')
@@ -67,7 +81,30 @@ function render(data) {
     .attr('x', (d) => xScale(new Date(d.year, 0)) + padding)
     .attr('y', (d) => yScale(new Date(2021, d.month - 1)) + padding - (cellHeight / 2))
     .attr('class', 'cell')
+    .style('fill', (d) => mapColor(d.variance))
     .attr('data-month', (d) => d.month - 1)
     .attr('data-year', (d) => d.year)
     .attr('data-temp', (d) => data.baseTemperature + d.variance);
+
+  /* ---------------------------------
+    LEGEND
+  --------------------------------*/
+  const legend = svg.append('g');
+
+  legend.attr('id', 'legend')
+    .attr('transform', `translate(${padding}, ${mapHeight})`);
+
+  const lcWidth = 20;
+
+  legend.append('g')
+    .selectAll('rect')
+    .data(colors.reverse())
+    .enter()
+    .append('rect')
+    .attr('class', 'lc')
+    .attr('x', (d, i) => i * lcWidth)
+    .attr('y', 0)
+    .attr('width', lcWidth)
+    .attr('height', lcWidth)
+    .style('fill', (d) => d);
 } // end render function
