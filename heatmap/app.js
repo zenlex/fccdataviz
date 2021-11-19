@@ -48,6 +48,9 @@ function render(data) {
 
   const years = data.monthlyVariance.map(({ year, month }) => new Date(year, month - 1));
 
+  const temps = data.monthlyVariance.map(({ variance }) => data.baseTemperature + variance);
+  console.log(temps);
+
   const xScale = d3.scaleTime()
     .domain(d3.extent(years))
     .range([0, width]);
@@ -94,7 +97,7 @@ function render(data) {
   legend.attr('id', 'legend')
     .attr('transform', `translate(${padding}, ${mapHeight})`);
 
-  const lcWidth = 20;
+  const lcWidth = 30;
 
   legend.append('g')
     .selectAll('rect')
@@ -107,4 +110,27 @@ function render(data) {
     .attr('width', lcWidth)
     .attr('height', lcWidth)
     .style('fill', (d) => d);
+
+  const legendThreshold = d3.scaleThreshold()
+    .domain(((min, max, count) => {
+      const arr = [];
+      const step = (max - min) / count;
+      const base = min;
+      for (let i = 1; i < count; i += 1) {
+        arr.push(base + step * i);
+      }
+      return arr;
+    })(d3.min(temps), d3.max(temps), colors.length))
+    .range([colors]);
+
+  const legXscale = d3.scaleLinear()
+    .domain(d3.extent(temps))
+    .range([0, colors.length * lcWidth]);
+
+  const legXaxis = d3.axisBottom(legXscale).tickSize(10, 0).tickValues(legendThreshold.domain()).tickFormat(d3.format('.1f'));
+
+  legend.append('g').attr('id', 'legend-axis').attr('transform', `translate(0, ${lcWidth})`)
+    .call(legXaxis);
+
+  // TODO: add labels for all axes and try .nice() on domains
 } // end render function

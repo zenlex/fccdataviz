@@ -15,11 +15,3 @@ section {
 heading * {
   text-align: center;
 }
-
-#legend{
-  stroke:red;
-}
-
-.lc {
-  stroke:green;
-}
