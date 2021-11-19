@@ -45,6 +45,7 @@ function render(data) {
   const svgHeight = 540;
   const width = 1200;
   const padding = 60;
+  const margin = { left: 60 };
 
   const years = data.monthlyVariance.map(({ year, month }) => new Date(year, month - 1));
 
@@ -65,9 +66,24 @@ function render(data) {
   const svg = section.append('svg').attr('x', 0).attr('y', 0).attr('width', width)
     .attr('height', svgHeight);
 
-  svg.append('g').attr('transform', `translate(${padding},${mapHeight - padding})`).attr('id', 'x-axis').call(xAxis);
+  svg.append('g').attr('transform', `translate(${padding + margin.left},${mapHeight - padding})`).attr('id', 'x-axis').call(xAxis);
 
-  svg.append('g').attr('transform', `translate(${padding}, ${padding})`).attr('id', 'y-axis').call(yAxis);
+  // x-axis label
+  svg.append('text')
+    .attr('text-anchor', 'middle')
+    .attr('x', width / 2)
+    .attr('y', mapHeight)
+    .text('Year');
+
+  svg.append('g').attr('transform', `translate(${padding + margin.left}, ${padding})`).attr('id', 'y-axis').call(yAxis);
+
+  // y-axis label
+  svg.append('text')
+    .attr('transform', 'rotate(-90)')
+    .attr('text-anchor', 'end')
+    .attr('x', -mapHeight / 2)
+    .attr('y', margin.left - 10)
+    .text('Months');
 
   /* ------------------------
     RENDER DATA CELLS
@@ -75,7 +91,8 @@ function render(data) {
   const cellHeight = (mapHeight - 2 * padding) / 12;
   const cellWidth = (width / data.monthlyVariance.length) * 12;
 
-  svg.append('g').selectAll('rect')
+  svg.append('g').attr('transform', `translate(${margin.left}, 0)`)
+    .selectAll('rect')
     .data(data.monthlyVariance)
     .enter()
     .append('rect')
@@ -95,7 +112,7 @@ function render(data) {
   const legend = svg.append('g');
 
   legend.attr('id', 'legend')
-    .attr('transform', `translate(${padding}, ${mapHeight})`);
+    .attr('transform', `translate(${padding + margin.left}, ${mapHeight})`);
 
   const lcWidth = 30;
 
@@ -131,6 +148,12 @@ function render(data) {
 
   legend.append('g').attr('id', 'legend-axis').attr('transform', `translate(0, ${lcWidth})`)
     .call(legXaxis);
+
+  legend.append('text')
+    .attr('text-anchor', 'middle')
+    .attr('x', (lcWidth * colors.length) / 2)
+    .attr('y', lcWidth + padding)
+    .text('Temperature in \u00B0 C');
 
   // TODO: add labels for all axes and try .nice() on domains
 } // end render function
