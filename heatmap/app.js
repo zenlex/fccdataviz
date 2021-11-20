@@ -1,7 +1,7 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable no-console */
 /* eslint-disable no-use-before-define */
 // headings
-// eslint-disable-next-line import/no-unresolved
 import * as d3 from 'https://cdn.skypack.dev/d3@7';
 
 const url = 'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/global-temperature.json';
@@ -68,6 +68,13 @@ function render(data) {
 
   svg.append('g').attr('transform', `translate(${padding + margin.left},${mapHeight - padding})`).attr('id', 'x-axis').call(xAxis);
 
+  // const tip = d3.tip()
+  //   .attr('class', 'tooltip')
+  //   .html((d) => `${d.variance}`)
+  //   .offset([-12, 0]);
+
+  // svg.call(tip);
+
   // x-axis label
   svg.append('text')
     .attr('text-anchor', 'middle')
@@ -105,6 +112,8 @@ function render(data) {
     .attr('data-month', (d) => d.month - 1)
     .attr('data-year', (d) => d.year)
     .attr('data-temp', (d) => data.baseTemperature + d.variance);
+  // .on('mouseover', tip.show())
+  // .on('mouseout', tip.hide());
 
   /* ---------------------------------
     LEGEND
@@ -155,5 +164,5 @@ function render(data) {
     .attr('y', lcWidth + padding)
     .text('Temperature in \u00B0 C');
 
-  // TODO: add labels for all axes and try .nice() on domains
+  // TODO: tooltip
 } // end render function
