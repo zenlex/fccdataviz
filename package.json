@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/zenlex/fccdataviz#readme",
   "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "babel-loader": "^8.2.3",
     "copy-webpack-plugin": "^10.0.0",
     "css-loader": "^6.5.1",
     "eslint": "^8.2.0",
@@ -30,6 +34,7 @@
   },
   "dependencies": {
     "d3": "^7.1.1",
-    "d3-tip": "^0.9.1"
+    "d3-tip": "^0.9.1",
+    "regenerator-runtime": "^0.13.9"
   }
 }

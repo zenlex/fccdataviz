@@ -2,8 +2,8 @@
 /* eslint-disable no-console */
 /* eslint-disable no-use-before-define */
 // headings
-import * as d3 from 'https://cdn.skypack.dev/d3@7';
-// import d3Tip from 'https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min';
+import * as d3 from 'd3';
+import d3Tip from 'd3-tip';
 
 const url = 'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/global-temperature.json';
 
@@ -69,12 +69,12 @@ function render(data) {
 
   svg.append('g').attr('transform', `translate(${padding + margin.left},${mapHeight - padding})`).attr('id', 'x-axis').call(xAxis);
 
-  // const tip = d3.tip()
-  //   .attr('class', 'tooltip')
-  //   .html((d) => `${d.variance}`)
-  //   .offset([-12, 0]);
+  const tip = d3Tip.tip()
+    .attr('class', 'tooltip')
+    .html((d) => `${d.variance}`)
+    .offset([-12, 0]);
 
-  // svg.call(tip);
+  svg.call(tip);
 
   // x-axis label
   svg.append('text')
