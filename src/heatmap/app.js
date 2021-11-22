@@ -3,6 +3,7 @@
 /* eslint-disable no-use-before-define */
 // headings
 import * as d3 from 'https://cdn.skypack.dev/d3@7';
+// import d3Tip from 'https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min';
 
 const url = 'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/global-temperature.json';
 

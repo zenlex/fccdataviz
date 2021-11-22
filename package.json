@@ -2,9 +2,10 @@
   "name": "fccdataviz",
   "version": "1.0.0",
   "description": "Free Code Camp Data Viz with D3 Projects",
-  "main": "index.js",
+  "private": "true",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -17,11 +18,18 @@
   },
   "homepage": "https://github.com/zenlex/fccdataviz#readme",
   "devDependencies": {
+    "copy-webpack-plugin": "^10.0.0",
+    "css-loader": "^6.5.1",
     "eslint": "^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.3"
+    "eslint-plugin-import": "^2.25.3",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.64.2",
+    "webpack-cli": "^4.9.1"
   },
   "dependencies": {
+    "d3": "^7.1.1",
     "d3-tip": "^0.9.1"
   }
 }
