@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
+  mode: 'development',
   entry: {
     index: ['regenerator-runtime', './src/index.js'],
     barchart: './src/barchart/app.js',
@@ -13,6 +14,12 @@ module.exports = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
+  },
+  devtool: 'inline-source-map',
+  devServer: {
+    static: {
+      directory: path.join(__dirname, './dist'),
+    },
   },
   plugins: [
     new CopyPlugin({
