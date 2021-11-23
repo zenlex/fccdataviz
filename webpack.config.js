@@ -1,18 +1,17 @@
 const CopyPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
   mode: 'development',
   entry: {
-    index: ['regenerator-runtime', './src/index.js'],
-    barchart: './src/barchart/app.js',
-    scatter: './src/scatter/app.js',
-    heatmap: './src/heatmap/app.js',
+    index: ['regenerator-runtime', '/src/js/index.js'],
+    barchart: ['/src/js/barchart.js'],
+    heatmap: ['/src/js/heatmap.js'],
+    scatter: ['/src/js/scatter.js'],
   },
   output: {
-    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js',
     clean: true,
   },
   devtool: 'inline-source-map',
@@ -22,16 +21,13 @@ module.exports = {
     },
   },
   plugins: [
+
     new CopyPlugin({
       patterns: [
-        { from: 'src/barchart/', to: 'barchart' },
-        { from: 'src/heatmap/', to: 'heatmap' },
-        { from: 'src/scatter/', to: 'scatter' },
+        {
+          from: 'src/templates',
+        },
       ],
-    }),
-
-    new HtmlWebpackPlugin({
-      title: 'FCC Data Visualization Course Projects',
     }),
   ],
   module: {
@@ -48,6 +44,7 @@ module.exports = {
             presets: ['@babel/preset-env'],
           },
         },
+        exclude: [/node_modules/],
       },
     ],
   },
