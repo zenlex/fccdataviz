@@ -5,6 +5,7 @@
 import * as d3 from 'd3';
 import d3Tip from 'd3-tip';
 
+console.log(d3Tip);
 const url = 'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/global-temperature.json';
 
 d3.json(url)
@@ -12,8 +13,6 @@ d3.json(url)
   .catch((err) => console.log(err));
 
 function render(data) {
-  console.log('Data:', data);
-
   const colors = ['#d73027', '#f46d43', '#fdae61', '#fee090', '#ffffbf', '#e0f3f8', '#abd9e9', '#74add1', '#4575b4'];
 
   function mapColor(v) {
@@ -26,7 +25,7 @@ function render(data) {
     return colors[index];
   }
 
-  const section = d3.select('body').append('section');
+  const section = d3.select('#heatmap-container').append('section');
 
   //  / GRAPH HEADER /  //
   const heading = section.append('heading');
@@ -51,7 +50,6 @@ function render(data) {
   const years = data.monthlyVariance.map(({ year, month }) => new Date(year, month - 1));
 
   const temps = data.monthlyVariance.map(({ variance }) => data.baseTemperature + variance);
-  console.log(temps);
 
   const xScale = d3.scaleTime()
     .domain(d3.extent(years))
@@ -69,7 +67,7 @@ function render(data) {
 
   svg.append('g').attr('transform', `translate(${padding + margin.left},${mapHeight - padding})`).attr('id', 'x-axis').call(xAxis);
 
-  const tip = d3Tip.tip()
+  const tip = d3Tip()
     .attr('class', 'tooltip')
     .html((d) => `${d.variance}`)
     .offset([-12, 0]);
