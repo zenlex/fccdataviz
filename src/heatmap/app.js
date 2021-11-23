@@ -26,7 +26,7 @@ function render(data) {
     return colors[index];
   }
 
-  const section = d3.select('body').append('section');
+  const section = d3.select('#heatmap-container').append('section');
 
   //  / GRAPH HEADER /  //
   const heading = section.append('heading');

@@ -7,4 +7,5 @@ document.querySelector('body').innerHTML = `<h1>Free Code Camp Data Visualizatio
 <section class="section-center">
   <a href="barchart/index.html">Barchart of US GDP</a>
   <a href="scatter/index.html">Scatterplot of Doping in Professional Cycling</a>
+  <a href="heatmap/index.html">A Literal Heat Map</a>
 </section>`;
