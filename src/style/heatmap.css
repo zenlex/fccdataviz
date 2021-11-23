@@ -1,0 +1,28 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+section {
+  margin: 60px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: visible;
+}
+
+heading * {
+  text-align: center;
+}
+
+.d3tip {
+  background-color: rgba(0,0,0, 0.25);
+  border-radius: 5px;
+  box-shadow: 2 2 5 rgba(0,0,0, .5);
+  text-align: center;
+}
+
+.cell:hover{
+  stroke:red;
+}
