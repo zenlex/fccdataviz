@@ -15,3 +15,14 @@ section {
 heading * {
   text-align: center;
 }
+
+.d3tip {
+  background-color: rgba(0,0,0, 0.25);
+  border-radius: 5px;
+  box-shadow: 2 2 5 rgba(0,0,0, .5);
+  text-align: center;
+}
+
+.cell:hover{
+  stroke:red;
+}
