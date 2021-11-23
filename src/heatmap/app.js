@@ -5,7 +5,6 @@
 import * as d3 from 'd3';
 import d3Tip from 'd3-tip';
 
-console.log(d3Tip);
 const url = 'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/global-temperature.json';
 
 d3.json(url)
@@ -41,8 +40,8 @@ function render(data) {
   /*--------------------------------------
   CREATE AXES & SCALES
  ---------------------------------------*/
-  const mapHeight = 400;
-  const svgHeight = 540;
+  const mapHeight = 500;
+  const svgHeight = mapHeight + 140;
   const width = 1200;
   const padding = 60;
   const margin = { left: 60 };
@@ -69,8 +68,10 @@ function render(data) {
 
   const tip = d3Tip()
     .attr('class', 'tooltip')
-    .html((d) => `${d.variance}`)
-    .offset([-12, 0]);
+    .html((d) => d)
+    .attr('id', 'tooltip')
+    .attr('class', 'd3tip')
+    .offset([0, 0]);
 
   svg.call(tip);
 
@@ -110,9 +111,14 @@ function render(data) {
     .style('fill', (d) => mapColor(d.variance))
     .attr('data-month', (d) => d.month - 1)
     .attr('data-year', (d) => d.year)
-    .attr('data-temp', (d) => data.baseTemperature + d.variance);
-  // .on('mouseover', tip.show())
-  // .on('mouseout', tip.hide());
+    .attr('data-temp', (d) => data.baseTemperature + d.variance)
+    .on('mouseover', function setTip(event, d) {
+      const tipStr = `${d3.timeFormat('%Y - %B')(new Date(d.year, d.month))}<br>${d3.format('.1f')(data.baseTemperature + d.variance)}\u00B0C
+      <br>${d3.format('.1f')(d.variance)}\u00B0C`;
+      tip.attr('data-year', d.year);
+      tip.show(tipStr, this);
+    })
+    .on('mouseout', function clearTip() { tip.hide(null, this); });
 
   /* ---------------------------------
     LEGEND
