@@ -71,7 +71,6 @@ function render(data) {
     .attr('class', 'tooltip')
     .html((d) => d)
     .attr('id', 'tooltip')
-    .attr('class', 'd3tip')
     .offset([0, 0]);
 
   svg.call(tip);

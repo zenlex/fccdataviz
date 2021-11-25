@@ -19,7 +19,6 @@ Promise.all([
   geoData,
 ]).then((values) => render(values[0], values[1]));
 
-const tip = d3Tip();
 const svgh = 500;
 const svgw = 1000;
 
@@ -31,6 +30,13 @@ function render(edD, geoD) {
   const svg = d3.select('svg');
   svg.attr('height', svgh)
     .attr('width', svgw);
+
+  const tip = d3Tip()
+    .html((d) => d)
+    .attr('id', 'tooltip')
+    .offset([0, 0]);
+
+  svg.call(tip);
 
   svg
     .append('g')
@@ -50,7 +56,20 @@ function render(edD, geoD) {
       return null;
     })
     .attr('d', path)
-    .style('stroke', '#fff');
+    .style('stroke', '#fff')
+    .on('mouseover', function showTip(e, d) {
+      let tipStr;
+      const res = edD.filter((obj) => obj.fips === d.id);
+      if (res[0]) {
+        tipStr = `<h4>${res[0].area_name}, ${res[0].state}:</h4>
+          <br><strong>${res[0].bachelorsOrHigher} %</strong>`;
+      } else tipStr = '<h4>No Data Found</h4>';
+      tip.attr('data-education', e.target.dataset.education);
+      tip.show(tipStr, this);
+    })
+    .on('mouseout', function hideTip() {
+      tip.hide(null, this);
+    });
 
   svg.append('path')
     .datum(
