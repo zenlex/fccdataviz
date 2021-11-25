@@ -11,6 +11,7 @@ module.exports = {
     choropleth: ['/src/js/choropleth.js'],
   },
   output: {
+    publicPath: '/fccdataviz',
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
     clean: true,
