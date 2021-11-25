@@ -40,6 +40,15 @@ function render(edD, geoD) {
     .enter()
     .append('path')
     .attr('class', 'county')
+    .attr('data-fips', (d) => d.id)
+    .attr('data-education', (d) => {
+      const res = edD.filter((obj) => obj.fips === d.id);
+      if (res[0]) {
+        return res[0].bachelorsOrHigher;
+      }
+      console.log(`no data found for id ${d.id}`);
+      return null;
+    })
     .attr('d', path)
     .style('stroke', '#fff');
 
