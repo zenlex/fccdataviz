@@ -26,3 +26,13 @@ header * {
 .cell:hover{
   stroke:red;
 }
+
+.states {
+  fill: none;
+  stroke: #fff;
+  stroke-linejoin: round;
+}
+.counties {
+  fill: #333;
+  stroke: #aaa;
+}
