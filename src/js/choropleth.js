@@ -78,6 +78,5 @@ function render(edD, geoD) {
     .attr('class', 'states')
     .attr('d', path);
 
-  console.log('usData = ', edD);
-  console.log('countyData =', geoD.objects.counties);
+  container.append('g').attr('id', 'legend');
 } // end render function
