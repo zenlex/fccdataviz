@@ -14,12 +14,14 @@ const countiesGeoURL = 'https://cdn.freecodecamp.org/testable-projects-fcc/data/
 const edData = d3.json(edDataURL).catch((err) => console.log(err));
 const geoData = d3.json(countiesGeoURL).catch((err) => console.log(err));
 
+const colors = ['#edf8e9', '#bae4b3', '#74c476', '#31a354', '#006d2c'];
+
 Promise.all([
   edData,
   geoData,
 ]).then((values) => render(values[0], values[1]));
 
-const svgh = 500;
+const svgh = 600;
 const svgw = 1000;
 
 function render(edD, geoD) {
@@ -46,6 +48,12 @@ function render(edD, geoD) {
     .enter()
     .append('path')
     .attr('class', 'county')
+    .style('fill', (d) => {
+      const res = edD.filter((obj) => obj.fips === d.id);
+      const colorIndex = Math.round(res[0].bachelorsOrHigher / (100 / colors.length));
+      console.log('colorIndex', colorIndex);
+      return colors[colorIndex];
+    })
     .attr('data-fips', (d) => d.id)
     .attr('data-education', (d) => {
       const res = edD.filter((obj) => obj.fips === d.id);
@@ -78,5 +86,40 @@ function render(edD, geoD) {
     .attr('class', 'states')
     .attr('d', path);
 
-  container.append('g').attr('id', 'legend');
+  const lcWidth = 30;
+
+  svg.append('g').attr('id', 'legend').attr('transform', `translate(${svgw / 2}, 0)`);
+  const legend = d3.select('#legend');
+  legend.selectAll('rect')
+    .data(colors.reverse())
+    .enter()
+    .append('rect')
+    .attr('class', 'lc')
+    .attr('x', (d, i) => i * lcWidth)
+    .attr('width', lcWidth)
+    .attr('height', lcWidth)
+    .style('fill', (d) => d);
+
+  const legendThreshold = d3.scaleThreshold()
+    .domain(((min, max, count) => {
+      const arr = [];
+      const step = (max - min) / count;
+      const base = min;
+      for (let i = 1; i < count; i += 1) {
+        arr.push(base + step * i);
+      }
+      return arr;
+    })(2.6, 75.1, colors.length)).range([colors]);
+
+  const legXscale = d3.scaleLinear().domain(2.6, 75.1).range([0, colors.length * lcWidth]);
+
+  const legXaxis = d3.axisBottom(legXscale).tickSize(10, 0).tickValues(legendThreshold.domain()).tickFormat(d3.format('.1f'));
+
+  legend.append('g').attr('id', 'legend-axis').attr('transform', `translate(0, ${lcWidth})`).call(legXaxis);
+
+  legend.append('text')
+    .attr('text-anchor', 'middle')
+    .attr('x', (lcWidth * colors.length) / 2)
+    .attr('y', lcWidth)
+    .text('% with Bachelors or higher');
 } // end render function

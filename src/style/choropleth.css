@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+svg {
+  overflow: visible;
+}
+
 .section-center {
   margin: 60px auto;
   display: flex;
@@ -33,12 +37,11 @@ header * {
   stroke-linejoin: round;
 }
 .counties {
-  fill: #333;
   stroke: #aaa;
 }
 
 #tooltip {
-  background-color: rgba(0,0,0, 0.25);
+  background-color: rgba(0,0,0, 0.75);
   border-radius: 5px;
   box-shadow: 2 2 5 rgba(0,0,0, .5);
   text-align: center;
