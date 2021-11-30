@@ -11,12 +11,11 @@ module.exports = {
     choropleth: ['/src/js/choropleth.js'],
   },
   output: {
-    publicPath: '/fccdataviz',
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
     clean: true,
   },
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   devServer: {
     static: {
       directory: path.join(__dirname, './dist'),
