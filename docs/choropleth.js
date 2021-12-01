@@ -46548,28 +46548,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var d3_tip__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! d3-tip */ "./node_modules/d3-tip/index.js");
 /* harmony import */ var topojson__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! topojson */ "./node_modules/topojson/index.js");
 /* harmony import */ var _style_choropleth_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../style/choropleth.css */ "./src/style/choropleth.css");
-/* eslint-disable import/no-unresolved */
+/**
+ * Free Code Camp D3 Data Visualization Certification Project
+ * Choropleth Map
+ *
+ * Colors from colorbrewer2
+ * Data API provided by Free Code Camp
+ * Written by Erich R. Keil aka zenlex November 2021
+ */
 
 /* eslint-disable no-console */
 
-/* eslint-disable no-use-before-define */
-// headings
 
 
+ // education data by county
 
+var edDataURL = 'https://cdn.freecodecamp.org/testable-projects-fcc/data/choropleth_map/for_user_education.json'; // geojson data for map
 
-var edDataURL = 'https://cdn.freecodecamp.org/testable-projects-fcc/data/choropleth_map/for_user_education.json';
 var countiesGeoURL = 'https://cdn.freecodecamp.org/testable-projects-fcc/data/choropleth_map/counties.json';
-var edData = d3__WEBPACK_IMPORTED_MODULE_0__.json(edDataURL)["catch"](function (err) {
-  return console.log(err);
-});
-var geoData = d3__WEBPACK_IMPORTED_MODULE_0__.json(countiesGeoURL)["catch"](function (err) {
-  return console.log(err);
-});
-var colors = ['#edf8e9', '#bae4b3', '#74c476', '#31a354', '#006d2c'];
-Promise.all([edData, geoData]).then(function (values) {
-  return render(values[0], values[1]);
-});
+var colors = ['#f7fcf5', '#e5f5e0', '#c7e9c0', '#a1d99b', '#74c476', '#41ab5d', '#238b45', '#006d2c', '#00441b'];
 var svgh = 600;
 var svgw = 1000;
 
@@ -46588,7 +46585,6 @@ function render(edD, geoD) {
       return obj.fips === d.id;
     });
     var colorIndex = Math.round(res[0].bachelorsOrHigher / (100 / colors.length));
-    console.log('colorIndex', colorIndex);
     return colors[colorIndex];
   }).attr('data-fips', function (d) {
     return d.id;
@@ -46621,30 +46617,39 @@ function render(edD, geoD) {
   svg.append('path').datum(topojson__WEBPACK_IMPORTED_MODULE_2__.mesh(geoD, geoD.objects.states, function (a, b) {
     return a !== b;
   })).attr('class', 'states').attr('d', path);
+  /*----------------------------------
+        LEGEND
+  ----------------------------------*/
+
   var lcWidth = 30;
-  svg.append('g').attr('id', 'legend').attr('transform', "translate(".concat(svgw / 2, ", 0)"));
+  var lcHeight = 10;
+  svg.append('g').attr('id', 'legend').attr('transform', "translate(".concat(svgw / 2 + lcWidth * colors.length / 3, ", ").concat(lcHeight * 2, ")"));
   var legend = d3__WEBPACK_IMPORTED_MODULE_0__.select('#legend');
-  legend.selectAll('rect').data(colors.reverse()).enter().append('rect').attr('class', 'lc').attr('x', function (d, i) {
+  legend.selectAll('rect').data(colors).enter().append('rect').attr('class', 'lc').attr('x', function (d, i) {
     return i * lcWidth;
-  }).attr('width', lcWidth).attr('height', lcWidth).style('fill', function (d) {
+  }).attr('width', lcWidth).attr('height', lcWidth / 2).style('fill', function (d) {
     return d;
   });
-  var legendThreshold = d3__WEBPACK_IMPORTED_MODULE_0__.scaleThreshold().domain(function (min, max, count) {
-    var arr = [];
-    var step = (max - min) / count;
-    var base = min;
-
-    for (var i = 1; i < count; i += 1) {
-      arr.push(base + step * i);
-    }
-
-    return arr;
-  }(2.6, 75.1, colors.length)).range([colors]);
-  var legXscale = d3__WEBPACK_IMPORTED_MODULE_0__.scaleLinear().domain(2.6, 75.1).range([0, colors.length * lcWidth]);
-  var legXaxis = d3__WEBPACK_IMPORTED_MODULE_0__.axisBottom(legXscale).tickSize(10, 0).tickValues(legendThreshold.domain()).tickFormat(d3__WEBPACK_IMPORTED_MODULE_0__.format('.1f'));
-  legend.append('g').attr('id', 'legend-axis').attr('transform', "translate(0, ".concat(lcWidth, ")")).call(legXaxis);
-  legend.append('text').attr('text-anchor', 'middle').attr('x', lcWidth * colors.length / 2).attr('y', lcWidth).text('% with Bachelors or higher');
+  var legendThreshold = d3__WEBPACK_IMPORTED_MODULE_0__.scaleThreshold().domain(d3__WEBPACK_IMPORTED_MODULE_0__.range(2.6, 75.1, (75.1 - 2.6) / colors.length)).range([colors]);
+  var legXscale = d3__WEBPACK_IMPORTED_MODULE_0__.scaleLinear().domain([2.6, 75.1]).range([0, colors.length * lcWidth]);
+  var legXaxis = d3__WEBPACK_IMPORTED_MODULE_0__.axisBottom(legXscale).tickSize(lcHeight + 10).tickValues(legendThreshold.domain()).tickFormat(function (d) {
+    return "".concat(Math.round(d), "%");
+  });
+  legend.append('g').attr('id', 'legend-axis').call(legXaxis);
+  legend.append('text').attr('text-anchor', 'middle').attr('x', lcWidth * colors.length / 2).attr('y', lcWidth * 2).text('% with Bachelors or higher');
 } // end render function
+// fetch data and render
+
+
+var edData = d3__WEBPACK_IMPORTED_MODULE_0__.json(edDataURL)["catch"](function (err) {
+  return console.log(err);
+});
+var geoData = d3__WEBPACK_IMPORTED_MODULE_0__.json(countiesGeoURL)["catch"](function (err) {
+  return console.log(err);
+});
+Promise.all([edData, geoData]).then(function (values) {
+  return render(values[0], values[1]);
+});
 })();
 
 /******/ })()

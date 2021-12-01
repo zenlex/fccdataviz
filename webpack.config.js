@@ -11,14 +11,14 @@ module.exports = {
     choropleth: ['/src/js/choropleth.js'],
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'docs'),
     filename: '[name].js',
     clean: true,
   },
   devtool: 'source-map',
   devServer: {
     static: {
-      directory: path.join(__dirname, './dist'),
+      directory: path.join(__dirname, './docs'),
     },
   },
   plugins: [
