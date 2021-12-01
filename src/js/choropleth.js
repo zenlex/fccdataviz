@@ -51,7 +51,6 @@ function render(edD, geoD) {
     .style('fill', (d) => {
       const res = edD.filter((obj) => obj.fips === d.id);
       const colorIndex = Math.round(res[0].bachelorsOrHigher / (100 / colors.length));
-      console.log('colorIndex', colorIndex);
       return colors[colorIndex];
     })
     .attr('data-fips', (d) => d.id)
@@ -86,9 +85,12 @@ function render(edD, geoD) {
     .attr('class', 'states')
     .attr('d', path);
 
+  /*----------------------------------
+        LEGEND
+  ----------------------------------*/
   const lcWidth = 30;
 
-  svg.append('g').attr('id', 'legend').attr('transform', `translate(${svgw / 2}, 0)`);
+  svg.append('g').attr('id', 'legend').attr('transform', `translate(${((svgw / 2) + lcWidth * colors.length)}, ${lcWidth / 2})`);
   const legend = d3.select('#legend');
   legend.selectAll('rect')
     .data(colors.reverse())
@@ -101,17 +103,11 @@ function render(edD, geoD) {
     .style('fill', (d) => d);
 
   const legendThreshold = d3.scaleThreshold()
-    .domain(((min, max, count) => {
-      const arr = [];
-      const step = (max - min) / count;
-      const base = min;
-      for (let i = 1; i < count; i += 1) {
-        arr.push(base + step * i);
-      }
-      return arr;
-    })(2.6, 75.1, colors.length)).range([colors]);
+    .domain(
+      d3.range(2.6, 75.1, (75.1 - 2.6) / colors.length),
+    ).range([colors]);
 
-  const legXscale = d3.scaleLinear().domain(2.6, 75.1).range([0, colors.length * lcWidth]);
+  const legXscale = d3.scaleLinear().domain([2.6, 75.1]).range([0, colors.length * lcWidth]);
 
   const legXaxis = d3.axisBottom(legXscale).tickSize(10, 0).tickValues(legendThreshold.domain()).tickFormat(d3.format('.1f'));
 
@@ -120,6 +116,6 @@ function render(edD, geoD) {
   legend.append('text')
     .attr('text-anchor', 'middle')
     .attr('x', (lcWidth * colors.length) / 2)
-    .attr('y', lcWidth)
+    .attr('y', lcWidth * 2.5)
     .text('% with Bachelors or higher');
 } // end render function
