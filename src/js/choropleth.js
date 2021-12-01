@@ -1,25 +1,25 @@
-/* eslint-disable import/no-unresolved */
+/**
+ * Free Code Camp D3 Data Visualization Certification Project
+ * Choropleth Map
+ *
+ * Colors from colorbrewer2
+ * Data API provided by Free Code Camp
+ * Written by Erich R. Keil aka zenlex November 2021
+ */
+
 /* eslint-disable no-console */
-/* eslint-disable no-use-before-define */
-// headings
 import * as d3 from 'd3';
 import d3Tip from 'd3-tip';
 import * as topojson from 'topojson';
 import '../style/choropleth.css';
 
+// education data by county
 const edDataURL = 'https://cdn.freecodecamp.org/testable-projects-fcc/data/choropleth_map/for_user_education.json';
 
+// geojson data for map
 const countiesGeoURL = 'https://cdn.freecodecamp.org/testable-projects-fcc/data/choropleth_map/counties.json';
 
-const edData = d3.json(edDataURL).catch((err) => console.log(err));
-const geoData = d3.json(countiesGeoURL).catch((err) => console.log(err));
-
 const colors = ['#f7fcf5', '#e5f5e0', '#c7e9c0', '#a1d99b', '#74c476', '#41ab5d', '#238b45', '#006d2c', '#00441b'];
-
-Promise.all([
-  edData,
-  geoData,
-]).then((values) => render(values[0], values[1]));
 
 const svgh = 600;
 const svgw = 1000;
@@ -108,11 +108,18 @@ function render(edD, geoD) {
       d3.range(2.6, 75.1, (75.1 - 2.6) / colors.length),
     ).range([colors]);
 
-  const legXscale = d3.scaleLinear().domain([2.6, 75.1]).range([0, colors.length * lcWidth]);
+  const legXscale = d3.scaleLinear()
+    .domain([2.6, 75.1])
+    .range([0, colors.length * lcWidth]);
 
-  const legXaxis = d3.axisBottom(legXscale).tickSize(lcHeight + 10).tickValues(legendThreshold.domain()).tickFormat((d) => `${Math.round(d)}%`);
+  const legXaxis = d3.axisBottom(legXscale)
+    .tickSize(lcHeight + 10)
+    .tickValues(legendThreshold.domain())
+    .tickFormat((d) => `${Math.round(d)}%`);
 
-  legend.append('g').attr('id', 'legend-axis').call(legXaxis);
+  legend.append('g')
+    .attr('id', 'legend-axis')
+    .call(legXaxis);
 
   legend.append('text')
     .attr('text-anchor', 'middle')
@@ -120,3 +127,12 @@ function render(edD, geoD) {
     .attr('y', lcWidth * 2)
     .text('% with Bachelors or higher');
 } // end render function
+
+// fetch data and render
+const edData = d3.json(edDataURL).catch((err) => console.log(err));
+const geoData = d3.json(countiesGeoURL).catch((err) => console.log(err));
+
+Promise.all([
+  edData,
+  geoData,
+]).then((values) => render(values[0], values[1]));
