@@ -14,7 +14,7 @@ const countiesGeoURL = 'https://cdn.freecodecamp.org/testable-projects-fcc/data/
 const edData = d3.json(edDataURL).catch((err) => console.log(err));
 const geoData = d3.json(countiesGeoURL).catch((err) => console.log(err));
 
-const colors = ['#edf8e9', '#bae4b3', '#74c476', '#31a354', '#006d2c'];
+const colors = ['#f7fcf5', '#e5f5e0', '#c7e9c0', '#a1d99b', '#74c476', '#41ab5d', '#238b45', '#006d2c', '#00441b'];
 
 Promise.all([
   edData,
@@ -89,17 +89,18 @@ function render(edD, geoD) {
         LEGEND
   ----------------------------------*/
   const lcWidth = 30;
+  const lcHeight = 10;
 
-  svg.append('g').attr('id', 'legend').attr('transform', `translate(${((svgw / 2) + lcWidth * colors.length)}, ${lcWidth / 2})`);
+  svg.append('g').attr('id', 'legend').attr('transform', `translate(${(svgw / 2) + (lcWidth * colors.length) / 3}, ${lcHeight * 2})`);
   const legend = d3.select('#legend');
   legend.selectAll('rect')
-    .data(colors.reverse())
+    .data(colors)
     .enter()
     .append('rect')
     .attr('class', 'lc')
     .attr('x', (d, i) => i * lcWidth)
     .attr('width', lcWidth)
-    .attr('height', lcWidth)
+    .attr('height', lcWidth / 2)
     .style('fill', (d) => d);
 
   const legendThreshold = d3.scaleThreshold()
@@ -109,13 +110,13 @@ function render(edD, geoD) {
 
   const legXscale = d3.scaleLinear().domain([2.6, 75.1]).range([0, colors.length * lcWidth]);
 
-  const legXaxis = d3.axisBottom(legXscale).tickSize(10, 0).tickValues(legendThreshold.domain()).tickFormat(d3.format('.1f'));
+  const legXaxis = d3.axisBottom(legXscale).tickSize(lcHeight + 10).tickValues(legendThreshold.domain()).tickFormat((d) => `${Math.round(d)}%`);
 
-  legend.append('g').attr('id', 'legend-axis').attr('transform', `translate(0, ${lcWidth})`).call(legXaxis);
+  legend.append('g').attr('id', 'legend-axis').call(legXaxis);
 
   legend.append('text')
     .attr('text-anchor', 'middle')
     .attr('x', (lcWidth * colors.length) / 2)
-    .attr('y', lcWidth * 2.5)
+    .attr('y', lcWidth * 2)
     .text('% with Bachelors or higher');
 } // end render function
