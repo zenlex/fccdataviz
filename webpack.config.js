@@ -9,6 +9,7 @@ module.exports = {
     heatmap: ['/src/js/heatmap.js'],
     scatter: ['/src/js/scatter.js'],
     choropleth: ['/src/js/choropleth.js'],
+    treemap: ['/src/js/treemap.js'],
   },
   output: {
     path: path.resolve(__dirname, 'docs'),
