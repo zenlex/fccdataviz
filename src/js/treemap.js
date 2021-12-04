@@ -1,7 +1,10 @@
+/* eslint-disable no-unused-vars */
 import * as d3 from 'd3';
 import d3Tip from 'd3-tip';
 
 import '../style/treemap.css';
+
+const url = 'https://cdn.freecodecamp.org/testable-projects-fcc/data/tree_map/kickstarter-funding-data.json';
 
 // treemap sizing
 const margin = {
@@ -19,3 +22,10 @@ const svg = d3.select('#treemap')
   .attr('width', width)
   .attr('height', height)
   .attr('transform', `translate(${margin.left}, ${margin.top})`);
+
+// get the data
+d3.json(url, (data) => {
+
+  // pass data to cluster
+  // ~~~~~~~~~~~~~~~~~PICK UP HERE BY LEARNING WHAT THE HELL d3.hierarchy does
+});
