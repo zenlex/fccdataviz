@@ -18,3 +18,20 @@ header *{
   text-align: center;
   padding: 5px;
 }
+
+#treemap {
+  display: flex;
+  justify-content: center;
+}
+
+.tile{
+  stroke: black;
+  fill: blue;
+}
+
+.cell-label{
+  font-size: 11px;
+  padding: 2px;
+  fill: white;
+  word-wrap: normal;
+}

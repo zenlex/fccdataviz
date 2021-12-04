@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import * as d3 from 'd3';
 import d3Tip from 'd3-tip';
@@ -13,8 +14,8 @@ const margin = {
   bottom: 10,
   left: 10,
 };
-const width = 500 - margin.left - margin.right;
-const height = 500 - margin.top - margin.bottom;
+const width = 1000 - margin.left - margin.right;
+const height = 1000 - margin.top - margin.bottom;
 
 // add svg to page
 const svg = d3.select('#treemap')
@@ -24,8 +25,37 @@ const svg = d3.select('#treemap')
   .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
 // get the data
-d3.json(url, (data) => {
+console.log('calling d3.json with url = ', url);
+d3.json(url)
+  .then((data) => {
+    console.log('data = ', data);
 
-  // pass data to cluster
-  // ~~~~~~~~~~~~~~~~~PICK UP HERE BY LEARNING WHAT THE HELL d3.hierarchy does
-});
+    // pass data to cluster
+    const root = d3.hierarchy(data).sum((d) => d.value);
+
+    // construct treemap
+    d3.treemap()
+      .size([width, height])
+      .padding(2)(root);
+
+    // add all the rectangles
+    svg.selectAll('rect')
+      .data(root.leaves())
+      .enter()
+      .append('rect')
+      .attr('x', (d) => d.x0)
+      .attr('y', (d) => d.y0)
+      .attr('width', (d) => d.x1 - d.x0)
+      .attr('height', (d) => d.y1 - d.y0)
+      .attr('class', 'tile');
+
+    // add node labels
+    svg.selectAll('text')
+      .data(root.leaves())
+      .enter()
+      .append('text')
+      .attr('x', (d) => d.x0 + 5)
+      .attr('y', (d) => d.y0 + 10)
+      .attr('class', 'cell-label')
+      .text((d) => d.data.name);
+  });
