@@ -33,6 +33,21 @@ d3.json(url)
     // pass data to cluster
     const root = d3.hierarchy(data).sum((d) => d.value);
 
+    const numCats = root.data.children.length;
+    const cats = [];
+    for (let i = 0; i < numCats; i += 1) {
+      cats.push(root.data.children[i].name);
+    }
+    console.log(cats);
+
+    // const random color array
+    const colors = [];
+    for (let i = 0; i < numCats; i += 1) {
+      const newColor = `rgb(${Math.round(Math.random() * 255)}, ${Math.round(Math.random() * 255)}, ${Math.round(Math.random() * 255)})`;
+      colors.push(newColor);
+    }
+    console.log('colors', colors);
+
     // construct treemap
     d3.treemap()
       .size([width, height])
@@ -48,6 +63,7 @@ d3.json(url)
       .attr('width', (d) => d.x1 - d.x0)
       .attr('height', (d) => d.y1 - d.y0)
       .attr('class', 'tile')
+      .style('fill', (d) => colors[cats.indexOf(d.data.category)])
       .attr('data-name', (d) => d.data.name)
       .attr('data-category', (d) => d.data.category)
       .attr('data-value', (d) => d.data.value);
