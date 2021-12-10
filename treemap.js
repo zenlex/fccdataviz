@@ -21,7 +21,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "*{\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n}\n\nheader {\n  margin-top: 60px;\n}\n\nheader *{\n  text-align: center;\n  padding: 5px;\n}\n\n#treemap {\n  display: flex;\n  justify-content: center;\n}\n\n.rect{\n  stroke: black;\n  fill: blue;\n}\n\n.cell-label{\n  font-size: 16px;\n  fill: white;\n}", "",{"version":3,"sources":["webpack://./src/style/treemap.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT,UAAU;EACV,sBAAsB;AACxB;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,sBAAsB;AACxB;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,YAAY;AACd;;AAEA;EACE,aAAa;EACb,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,UAAU;AACZ;;AAEA;EACE,eAAe;EACf,WAAW;AACb","sourcesContent":["*{\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n}\n\nheader {\n  margin-top: 60px;\n}\n\nheader *{\n  text-align: center;\n  padding: 5px;\n}\n\n#treemap {\n  display: flex;\n  justify-content: center;\n}\n\n.rect{\n  stroke: black;\n  fill: blue;\n}\n\n.cell-label{\n  font-size: 16px;\n  fill: white;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "*{\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n}\n\nheader {\n  margin-top: 60px;\n}\n\nheader *{\n  text-align: center;\n  padding: 5px;\n}\n\n#treemap {\n  display: flex;\n  justify-content: center;\n}\n\n.tile{\n  stroke: black;\n  fill: blue;\n}\n\n.cell-label{\n  font-size: 11px;\n  padding: 2px;\n  fill: white;\n  word-wrap: normal;\n}", "",{"version":3,"sources":["webpack://./src/style/treemap.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT,UAAU;EACV,sBAAsB;AACxB;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,sBAAsB;AACxB;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,YAAY;AACd;;AAEA;EACE,aAAa;EACb,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,UAAU;AACZ;;AAEA;EACE,eAAe;EACf,YAAY;EACZ,WAAW;EACX,iBAAiB;AACnB","sourcesContent":["*{\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n}\n\nheader {\n  margin-top: 60px;\n}\n\nheader *{\n  text-align: center;\n  padding: 5px;\n}\n\n#treemap {\n  display: flex;\n  justify-content: center;\n}\n\n.tile{\n  stroke: black;\n  fill: blue;\n}\n\n.cell-label{\n  font-size: 11px;\n  padding: 2px;\n  fill: white;\n  word-wrap: normal;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -44081,18 +44081,39 @@ var margin = {
   bottom: 10,
   left: 10
 };
-var width = 500 - margin.left - margin.right;
-var height = 500 - margin.top - margin.bottom; // add svg to page
+var width = 1000 - margin.left - margin.right;
+var height = 1000 - margin.top - margin.bottom; // add svg to page
 
 var svg = d3__WEBPACK_IMPORTED_MODULE_0__.select('#treemap').append('svg').attr('width', width).attr('height', height).attr('transform', "translate(".concat(margin.left, ", ").concat(margin.top, ")")); // get the data
 
 console.log('calling d3.json with url = ', url);
-d3__WEBPACK_IMPORTED_MODULE_0__.json(url, function (data) {
+d3__WEBPACK_IMPORTED_MODULE_0__.json(url).then(function (data) {
   console.log('data = ', data); // pass data to cluster
 
   var root = d3__WEBPACK_IMPORTED_MODULE_0__.hierarchy(data).sum(function (d) {
     return d.value;
-  }); // construct treemap
+  });
+  var numCats = root.data.children.length;
+  var cats = [];
+
+  for (var i = 0; i < numCats; i += 1) {
+    cats.push(root.data.children[i].name);
+  }
+
+  console.log(cats); // const random color array
+
+  var shader = function shader(hex) {
+    return d3__WEBPACK_IMPORTED_MODULE_0__.interpolateRgb(hex, '#FFF')(0.25);
+  };
+
+  var colors = [];
+
+  for (var _i = 0; _i < numCats; _i += 1) {
+    var newColor = "#".concat(Math.round(Math.random() * 255).toString(16)).concat(Math.round(Math.random() * 255).toString(16)).concat(Math.round(Math.random() * 255).toString(16));
+    colors.push(shader(newColor));
+  }
+
+  console.log('colors', colors); // construct treemap
 
   d3__WEBPACK_IMPORTED_MODULE_0__.treemap().size([width, height]).padding(2)(root); // add all the rectangles
 
@@ -44104,14 +44125,22 @@ d3__WEBPACK_IMPORTED_MODULE_0__.json(url, function (data) {
     return d.x1 - d.x0;
   }).attr('height', function (d) {
     return d.y1 - d.y0;
-  }).attr('class', 'rect'); // add node labels
+  }).attr('class', 'tile').style('fill', function (d) {
+    return colors[cats.indexOf(d.data.category)];
+  }).attr('data-name', function (d) {
+    return d.data.name;
+  }).attr('data-category', function (d) {
+    return d.data.category;
+  }).attr('data-value', function (d) {
+    return d.data.value;
+  }); // add node labels
 
   svg.selectAll('text').data(root.leaves()).enter().append('text').attr('x', function (d) {
     return d.x0 + 5;
   }).attr('y', function (d) {
     return d.y0 + 10;
   }).attr('class', 'cell-label').text(function (d) {
-    return d.name;
+    return d.data.name;
   });
 });
 })();
