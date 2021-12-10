@@ -43,10 +43,13 @@ d3.json(url)
     // const random color array
     const colors = [];
     for (let i = 0; i < numCats; i += 1) {
-      const newColor = `rgb(${Math.round(Math.random() * 255)}, ${Math.round(Math.random() * 255)}, ${Math.round(Math.random() * 255)})`;
+      const newColor = `rgba(${Math.round(Math.random() * 255)},
+       ${Math.round(Math.random() * 122)}, ${Math.round(Math.random() * 125 + 125)}, 0.6)`;
+
       colors.push(newColor);
     }
     console.log('colors', colors);
+    const colorScale = d3.scaleOrdinal().range(colors);
 
     // construct treemap
     d3.treemap()
