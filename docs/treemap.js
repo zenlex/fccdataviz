@@ -21,7 +21,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "*{\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n}\n\nheader {\n  margin-top: 60px;\n}\n\nheader *{\n  text-align: center;\n  padding: 5px;\n}\n\n#treemap {\n  display: flex;\n  justify-content: center;\n}\n\n.tile{\n  stroke: black;\n  fill: blue;\n}\n\n.cell-label{\n  font-size: 11px;\n  padding: 2px;\n  fill: white;\n  word-wrap: normal;\n}", "",{"version":3,"sources":["webpack://./src/style/treemap.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT,UAAU;EACV,sBAAsB;AACxB;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,sBAAsB;AACxB;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,YAAY;AACd;;AAEA;EACE,aAAa;EACb,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,UAAU;AACZ;;AAEA;EACE,eAAe;EACf,YAAY;EACZ,WAAW;EACX,iBAAiB;AACnB","sourcesContent":["*{\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n}\n\nheader {\n  margin-top: 60px;\n}\n\nheader *{\n  text-align: center;\n  padding: 5px;\n}\n\n#treemap {\n  display: flex;\n  justify-content: center;\n}\n\n.tile{\n  stroke: black;\n  fill: blue;\n}\n\n.cell-label{\n  font-size: 11px;\n  padding: 2px;\n  fill: white;\n  word-wrap: normal;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  background-color: rgb(21, 22, 22);\n}\n\nheader {\n  margin-top: 60px;\n}\n\nheader * {\n  text-align: center;\n  color: white;\n  padding: 5px;\n}\n\n#treemap {\n  display: flex;\n  justify-content: center;\n}\n\n.tile {\n  stroke: black;\n  fill: blue;\n}\n\n.label-container{\n  color: white;\n  padding: 4px;\n}\n\n.foreignObject {\n  font: 9px sans-serif;\n  text-overflow: ellipsis;\n  text-align: left;\n  word-wrap: break-word;\n}\n\n#legend {\n  width: 500px;\n}", "",{"version":3,"sources":["webpack://./src/style/treemap.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT,UAAU;EACV,sBAAsB;AACxB;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,sBAAsB;EACtB,iCAAiC;AACnC;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,YAAY;EACZ,YAAY;AACd;;AAEA;EACE,aAAa;EACb,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,UAAU;AACZ;;AAEA;EACE,YAAY;EACZ,YAAY;AACd;;AAEA;EACE,oBAAoB;EACpB,uBAAuB;EACvB,gBAAgB;EAChB,qBAAqB;AACvB;;AAEA;EACE,YAAY;AACd","sourcesContent":["* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  background-color: rgb(21, 22, 22);\n}\n\nheader {\n  margin-top: 60px;\n}\n\nheader * {\n  text-align: center;\n  color: white;\n  padding: 5px;\n}\n\n#treemap {\n  display: flex;\n  justify-content: center;\n}\n\n.tile {\n  stroke: black;\n  fill: blue;\n}\n\n.label-container{\n  color: white;\n  padding: 4px;\n}\n\n.foreignObject {\n  font: 9px sans-serif;\n  text-overflow: ellipsis;\n  text-align: left;\n  word-wrap: break-word;\n}\n\n#legend {\n  width: 500px;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -44094,39 +44094,35 @@ d3__WEBPACK_IMPORTED_MODULE_0__.json(url).then(function (data) {
     return d.value;
   });
   var numCats = root.data.children.length;
-  var cats = [];
+  var categories = [];
 
   for (var i = 0; i < numCats; i += 1) {
-    cats.push(root.data.children[i].name);
+    categories.push(root.data.children[i].name);
   }
 
-  console.log(cats); // const random color array
-
-  var shader = function shader(hex) {
-    return d3__WEBPACK_IMPORTED_MODULE_0__.interpolateRgb(hex, '#FFF')(0.25);
-  };
+  console.log(categories); // const random color array
 
   var colors = [];
 
   for (var _i = 0; _i < numCats; _i += 1) {
-    var newColor = "#".concat(Math.round(Math.random() * 255).toString(16)).concat(Math.round(Math.random() * 255).toString(16)).concat(Math.round(Math.random() * 255).toString(16));
-    colors.push(shader(newColor));
+    var newColor = "rgba(".concat(Math.round(Math.random() * 255), ",\n       ").concat(Math.round(Math.random() * 122), ", ").concat(Math.round(Math.random() * 125 + 125), ", 0.6)");
+    colors.push(newColor);
   }
 
-  console.log('colors', colors); // construct treemap
+  console.log('colors', colors);
+  var colorScale = d3__WEBPACK_IMPORTED_MODULE_0__.scaleOrdinal().range(colors); // construct treemap
 
   d3__WEBPACK_IMPORTED_MODULE_0__.treemap().size([width, height]).padding(2)(root); // add all the rectangles
 
-  svg.selectAll('rect').data(root.leaves()).enter().append('rect').attr('x', function (d) {
-    return d.x0;
-  }).attr('y', function (d) {
-    return d.y0;
-  }).attr('width', function (d) {
+  var cell = svg.selectAll('g').data(root.leaves()).enter().append('g').attr('transform', function (d) {
+    return "translate(".concat(d.x0, ", ").concat(d.y0, ")");
+  });
+  cell.append('rect').attr('width', function (d) {
     return d.x1 - d.x0;
   }).attr('height', function (d) {
     return d.y1 - d.y0;
   }).attr('class', 'tile').style('fill', function (d) {
-    return colors[cats.indexOf(d.data.category)];
+    return colors[categories.indexOf(d.data.category)];
   }).attr('data-name', function (d) {
     return d.data.name;
   }).attr('data-category', function (d) {
@@ -44135,12 +44131,25 @@ d3__WEBPACK_IMPORTED_MODULE_0__.json(url).then(function (data) {
     return d.data.value;
   }); // add node labels
 
-  svg.selectAll('text').data(root.leaves()).enter().append('text').attr('x', function (d) {
-    return d.x0 + 5;
-  }).attr('y', function (d) {
-    return d.y0 + 10;
-  }).attr('class', 'cell-label').text(function (d) {
+  cell.append('foreignObject').attr('class', 'foreignObject').attr('width', function (d) {
+    return d.x1 - d.x0;
+  }).attr('height', function (d) {
+    return d.y1 - d.y0;
+  }).append('xhtml:div').attr('class', 'label-container').text(function (d) {
     return d.data.name;
+  }).attr('text-anchor', 'middle');
+  var LEGEND_RECT_SIZE = 12;
+  var LEGEND_TEXT_OFFSET_X = 3;
+  var LEGEND_TEXT_OFFSET_Y = 5;
+  var LEGEND_ELEM_SPACING = 120;
+  var LEGEND_ROW_SPACING = 30;
+  var legend = d3__WEBPACK_IMPORTED_MODULE_0__.select('#legend').attr('transform', "tranlate(".concat(width / 2 - 1.5 * LEGEND_ELEM_SPACING, ", 0)"));
+  var legendElement = legend.selectAll('g').data(categories).enter().append('g').attr('class', 'legend-element').attr('transform', function (d, i) {
+    return "translate(".concat(i % 3 * LEGEND_ELEM_SPACING, ", ").concat(Math.floor(i / 3) * LEGEND_ROW_SPACING, ")");
+  }).append('rect').attr('width', LEGEND_RECT_SIZE).attr('height', LEGEND_RECT_SIZE).style('fill', function (d) {
+    return colors[categories.indexOf(d)];
+  }).append('text').attr('x', LEGEND_TEXT_OFFSET_X).attr('y', LEGEND_TEXT_OFFSET_Y).text(function (d) {
+    return d;
   });
 });
 })();
