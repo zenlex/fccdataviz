@@ -57,12 +57,13 @@ d3.json(url)
       .padding(2)(root);
 
     // add all the rectangles
-    svg.selectAll('rect')
+    const cell = svg.selectAll('g')
       .data(root.leaves())
       .enter()
-      .append('rect')
-      .attr('x', (d) => d.x0)
-      .attr('y', (d) => d.y0)
+      .append('g')
+      .attr('transform', (d) => `translate(${d.x0}, ${d.y0})`);
+
+    cell.append('rect')
       .attr('width', (d) => d.x1 - d.x0)
       .attr('height', (d) => d.y1 - d.y0)
       .attr('class', 'tile')
@@ -72,12 +73,12 @@ d3.json(url)
       .attr('data-value', (d) => d.data.value);
 
     // add node labels
-    svg.selectAll('text')
-      .data(root.leaves())
-      .enter()
-      .append('text')
-      .attr('x', (d) => d.x0 + 5)
-      .attr('y', (d) => d.y0 + 10)
-      .attr('class', 'cell-label')
-      .text((d) => d.data.name);
+    cell.append('foreignObject')
+      .attr('class', 'foreignObject')
+      .attr('width', (d) => d.x1 - d.x0)
+      .attr('height', (d) => d.y1 - d.y0)
+      .append('xhtml:div')
+      .attr('class', 'label-container')
+      .text((d) => d.data.name)
+      .attr('text-anchor', 'middle');
   });

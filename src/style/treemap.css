@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -15,7 +15,7 @@ header {
   margin-top: 60px;
 }
 
-header *{
+header * {
   text-align: center;
   color: white;
   padding: 5px;
@@ -26,18 +26,23 @@ header *{
   justify-content: center;
 }
 
-.tile{
+.tile {
   stroke: black;
   fill: blue;
 }
 
-.cell-label{
-  font-size: 11px;
-  padding: 2px;
-  fill: white;
-  word-wrap: normal;
+.label-container{
+  color: white;
+  padding: 4px;
 }
 
-#legend{
+.foreignObject {
+  font: 9px sans-serif;
+  text-overflow: ellipsis;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+#legend {
   width: 500px;
 }
