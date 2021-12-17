@@ -26,11 +26,8 @@ const svg = d3.select('#treemap')
   .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
 // get the data
-console.log('calling d3.json with url = ', url);
 d3.json(url)
   .then((data) => {
-    console.log('data = ', data);
-
     // pass data to cluster
     const root = d3.hierarchy(data).sum((d) => d.value);
 
@@ -39,7 +36,6 @@ d3.json(url)
     for (let i = 0; i < numCats; i += 1) {
       categories.push(root.data.children[i].name);
     }
-    console.log(categories);
 
     // const random color array
     const colors = [];
@@ -49,7 +45,6 @@ d3.json(url)
 
       colors.push(newColor);
     }
-    console.log('colors', colors);
     const colorScale = d3.scaleOrdinal().range(colors);
 
     // construct treemap
@@ -83,7 +78,7 @@ d3.json(url)
       .on('mouseover', function showTip(e) {
         const rectElem = e.currentTarget;
         const tipstr = `${rectElem.dataset.name}<br>
-        ${rectElem.dataset.value}`;
+        ${d3.format('$,.0f')(rectElem.dataset.value)}`;
         tip.attr('data-value', rectElem.dataset.value);
         tip.show(tipstr, this);
       })
@@ -99,10 +94,9 @@ d3.json(url)
       .attr('data-value', (d) => d.data.value)
       .attr('text-anchor', 'middle')
       .on('mouseover', function showTip(e) {
-        console.log(e.target);
         const rectElem = e.currentTarget.previousSibling;
         const tipstr = `${rectElem.dataset.name}<br>
-        ${rectElem.dataset.value}`;
+        ${d3.format('$,.0f')(rectElem.dataset.value)}`;
         tip.attr('data-value', rectElem.dataset.value);
         tip.show(tipstr, this);
       })

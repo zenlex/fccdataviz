@@ -44088,10 +44088,8 @@ var height = 1000 - margin.top - margin.bottom; // add svg to page
 
 var svg = d3__WEBPACK_IMPORTED_MODULE_0__.select('#treemap').append('svg').attr('width', width).attr('height', height).attr('transform', "translate(".concat(margin.left, ", ").concat(margin.top, ")")); // get the data
 
-console.log('calling d3.json with url = ', url);
 d3__WEBPACK_IMPORTED_MODULE_0__.json(url).then(function (data) {
-  console.log('data = ', data); // pass data to cluster
-
+  // pass data to cluster
   var root = d3__WEBPACK_IMPORTED_MODULE_0__.hierarchy(data).sum(function (d) {
     return d.value;
   });
@@ -44100,9 +44098,8 @@ d3__WEBPACK_IMPORTED_MODULE_0__.json(url).then(function (data) {
 
   for (var i = 0; i < numCats; i += 1) {
     categories.push(root.data.children[i].name);
-  }
+  } // const random color array
 
-  console.log(categories); // const random color array
 
   var colors = [];
 
@@ -44111,7 +44108,6 @@ d3__WEBPACK_IMPORTED_MODULE_0__.json(url).then(function (data) {
     colors.push(newColor);
   }
 
-  console.log('colors', colors);
   var colorScale = d3__WEBPACK_IMPORTED_MODULE_0__.scaleOrdinal().range(colors); // construct treemap
 
   d3__WEBPACK_IMPORTED_MODULE_0__.treemap().size([width, height]).padding(2)(root); // create tooltips
@@ -44138,7 +44134,7 @@ d3__WEBPACK_IMPORTED_MODULE_0__.json(url).then(function (data) {
     return d.data.value;
   }).on('mouseover', function showTip(e) {
     var rectElem = e.currentTarget;
-    var tipstr = "".concat(rectElem.dataset.name, "<br>\n        ").concat(rectElem.dataset.value);
+    var tipstr = "".concat(rectElem.dataset.name, "<br>\n        ").concat(d3__WEBPACK_IMPORTED_MODULE_0__.format('$,.0f')(rectElem.dataset.value));
     tip.attr('data-value', rectElem.dataset.value);
     tip.show(tipstr, this);
   }).on('mouseout', function () {
@@ -44156,9 +44152,8 @@ d3__WEBPACK_IMPORTED_MODULE_0__.json(url).then(function (data) {
   }).attr('data-value', function (d) {
     return d.data.value;
   }).attr('text-anchor', 'middle').on('mouseover', function showTip(e) {
-    console.log(e.target);
     var rectElem = e.currentTarget.previousSibling;
-    var tipstr = "".concat(rectElem.dataset.name, "<br>\n        ").concat(rectElem.dataset.value);
+    var tipstr = "".concat(rectElem.dataset.name, "<br>\n        ").concat(d3__WEBPACK_IMPORTED_MODULE_0__.format('$,.0f')(rectElem.dataset.value));
     tip.attr('data-value', rectElem.dataset.value);
     tip.show(tipstr, this);
   }).on('mouseout', function () {
