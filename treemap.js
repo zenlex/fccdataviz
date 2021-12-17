@@ -21,7 +21,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  background-color: rgb(21, 22, 22);\n}\n\nheader {\n  margin-top: 60px;\n}\n\nheader * {\n  text-align: center;\n  color: white;\n  padding: 5px;\n}\n\n#treemap {\n  display: flex;\n  justify-content: center;\n}\n\n.tile {\n  stroke: black;\n  fill: blue;\n}\n\n.label-container{\n  color: white;\n  padding: 4px;\n}\n\n.foreignObject {\n  font: 9px sans-serif;\n  text-overflow: ellipsis;\n  text-align: left;\n  word-wrap: break-word;\n}\n\n#legend {\n  width: 500px;\n}", "",{"version":3,"sources":["webpack://./src/style/treemap.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT,UAAU;EACV,sBAAsB;AACxB;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,sBAAsB;EACtB,iCAAiC;AACnC;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,YAAY;EACZ,YAAY;AACd;;AAEA;EACE,aAAa;EACb,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,UAAU;AACZ;;AAEA;EACE,YAAY;EACZ,YAAY;AACd;;AAEA;EACE,oBAAoB;EACpB,uBAAuB;EACvB,gBAAgB;EAChB,qBAAqB;AACvB;;AAEA;EACE,YAAY;AACd","sourcesContent":["* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  background-color: rgb(21, 22, 22);\n}\n\nheader {\n  margin-top: 60px;\n}\n\nheader * {\n  text-align: center;\n  color: white;\n  padding: 5px;\n}\n\n#treemap {\n  display: flex;\n  justify-content: center;\n}\n\n.tile {\n  stroke: black;\n  fill: blue;\n}\n\n.label-container{\n  color: white;\n  padding: 4px;\n}\n\n.foreignObject {\n  font: 9px sans-serif;\n  text-overflow: ellipsis;\n  text-align: left;\n  word-wrap: break-word;\n}\n\n#legend {\n  width: 500px;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  background-color: rgb(82, 83, 83);\n}\n\nheader {\n  margin-top: 60px;\n}\n\nheader * {\n  text-align: center;\n  color: white;\n  padding: 5px;\n}\n\n#treemap {\n  display: flex;\n  justify-content: center;\n}\n\n.tile {\n  stroke: black;\n  fill: blue;\n}\n\n.label-container{\n  color: white;\n  padding: 4px;\n}\n\n.foreignObject {\n  font: 9px sans-serif;\n  text-overflow: ellipsis;\n  text-align: left;\n  word-wrap: break-word;\n}\n\n#legend-container{\n  display:flex;\n  justify-content: center;\n  margin: 20px;\n  padding: 5px;\n}\n#legend {\n  width:400px;\n}\n\n#tooltip {\n  background-color: lightgray;\n  opacity:0.8;\n  border-radius: 5px;\n  padding: 10px;\n}", "",{"version":3,"sources":["webpack://./src/style/treemap.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT,UAAU;EACV,sBAAsB;AACxB;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,sBAAsB;EACtB,iCAAiC;AACnC;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,YAAY;EACZ,YAAY;AACd;;AAEA;EACE,aAAa;EACb,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,UAAU;AACZ;;AAEA;EACE,YAAY;EACZ,YAAY;AACd;;AAEA;EACE,oBAAoB;EACpB,uBAAuB;EACvB,gBAAgB;EAChB,qBAAqB;AACvB;;AAEA;EACE,YAAY;EACZ,uBAAuB;EACvB,YAAY;EACZ,YAAY;AACd;AACA;EACE,WAAW;AACb;;AAEA;EACE,2BAA2B;EAC3B,WAAW;EACX,kBAAkB;EAClB,aAAa;AACf","sourcesContent":["* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  background-color: rgb(82, 83, 83);\n}\n\nheader {\n  margin-top: 60px;\n}\n\nheader * {\n  text-align: center;\n  color: white;\n  padding: 5px;\n}\n\n#treemap {\n  display: flex;\n  justify-content: center;\n}\n\n.tile {\n  stroke: black;\n  fill: blue;\n}\n\n.label-container{\n  color: white;\n  padding: 4px;\n}\n\n.foreignObject {\n  font: 9px sans-serif;\n  text-overflow: ellipsis;\n  text-align: left;\n  word-wrap: break-word;\n}\n\n#legend-container{\n  display:flex;\n  justify-content: center;\n  margin: 20px;\n  padding: 5px;\n}\n#legend {\n  width:400px;\n}\n\n#tooltip {\n  background-color: lightgray;\n  opacity:0.8;\n  border-radius: 5px;\n  padding: 10px;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -44067,6 +44067,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var d3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! d3 */ "./node_modules/d3/src/index.js");
 /* harmony import */ var d3_tip__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! d3-tip */ "./node_modules/d3-tip/index.js");
 /* harmony import */ var _style_treemap_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../style/treemap.css */ "./src/style/treemap.css");
+/* eslint-disable prefer-arrow-callback */
+
 /* eslint-disable no-console */
 
 /* eslint-disable no-unused-vars */
@@ -44105,14 +44107,19 @@ d3__WEBPACK_IMPORTED_MODULE_0__.json(url).then(function (data) {
   var colors = [];
 
   for (var _i = 0; _i < numCats; _i += 1) {
-    var newColor = "rgba(".concat(Math.round(Math.random() * 255), ",\n       ").concat(Math.round(Math.random() * 122), ", ").concat(Math.round(Math.random() * 125 + 125), ", 0.6)");
+    var newColor = "rgba(".concat(Math.round(Math.random() * 255), ",\n       ").concat(Math.round(Math.random() * 255 - 125), ", ").concat(Math.round(Math.random() * 200 + 55), ", 0.6)");
     colors.push(newColor);
   }
 
   console.log('colors', colors);
   var colorScale = d3__WEBPACK_IMPORTED_MODULE_0__.scaleOrdinal().range(colors); // construct treemap
 
-  d3__WEBPACK_IMPORTED_MODULE_0__.treemap().size([width, height]).padding(2)(root); // add all the rectangles
+  d3__WEBPACK_IMPORTED_MODULE_0__.treemap().size([width, height]).padding(2)(root); // create tooltips
+
+  var tip = (0,d3_tip__WEBPACK_IMPORTED_MODULE_1__["default"])().html(function (d) {
+    return d;
+  }).attr('id', 'tooltip').offset([0, 0]);
+  svg.call(tip); // add all the rectangles
 
   var cell = svg.selectAll('g').data(root.leaves()).enter().append('g').attr('transform', function (d) {
     return "translate(".concat(d.x0, ", ").concat(d.y0, ")");
@@ -44129,26 +44136,49 @@ d3__WEBPACK_IMPORTED_MODULE_0__.json(url).then(function (data) {
     return d.data.category;
   }).attr('data-value', function (d) {
     return d.data.value;
+  }).on('mouseover', function showTip(e) {
+    var rectElem = e.currentTarget;
+    var tipstr = "".concat(rectElem.dataset.name, "<br>\n        ").concat(rectElem.dataset.value);
+    tip.attr('data-value', rectElem.dataset.value);
+    tip.show(tipstr, this);
+  }).on('mouseout', function () {
+    return tip.hide(null);
   }); // add node labels
 
   cell.append('foreignObject').attr('class', 'foreignObject').attr('width', function (d) {
     return d.x1 - d.x0;
   }).attr('height', function (d) {
     return d.y1 - d.y0;
+  }).attr('data-name', function (d) {
+    return d.data.name;
+  }).attr('data-category', function (d) {
+    return d.data.category;
+  }).attr('data-value', function (d) {
+    return d.data.value;
+  }).attr('text-anchor', 'middle').on('mouseover', function showTip(e) {
+    console.log(e.target);
+    var rectElem = e.currentTarget.previousSibling;
+    var tipstr = "".concat(rectElem.dataset.name, "<br>\n        ").concat(rectElem.dataset.value);
+    tip.attr('data-value', rectElem.dataset.value);
+    tip.show(tipstr, this);
+  }).on('mouseout', function () {
+    return tip.hide(null);
   }).append('xhtml:div').attr('class', 'label-container').text(function (d) {
     return d.data.name;
-  }).attr('text-anchor', 'middle');
+  });
   var LEGEND_RECT_SIZE = 12;
-  var LEGEND_TEXT_OFFSET_X = 3;
-  var LEGEND_TEXT_OFFSET_Y = 5;
+  var LEGEND_TEXT_OFFSET_X = 5;
+  var LEGEND_TEXT_OFFSET_Y = 3;
   var LEGEND_ELEM_SPACING = 120;
   var LEGEND_ROW_SPACING = 30;
-  var legend = d3__WEBPACK_IMPORTED_MODULE_0__.select('#legend').attr('transform', "tranlate(".concat(width / 2 - 1.5 * LEGEND_ELEM_SPACING, ", 0)"));
+  var legend = d3__WEBPACK_IMPORTED_MODULE_0__.select('#legend');
   var legendElement = legend.selectAll('g').data(categories).enter().append('g').attr('class', 'legend-element').attr('transform', function (d, i) {
-    return "translate(".concat(i % 3 * LEGEND_ELEM_SPACING, ", ").concat(Math.floor(i / 3) * LEGEND_ROW_SPACING, ")");
-  }).append('rect').attr('width', LEGEND_RECT_SIZE).attr('height', LEGEND_RECT_SIZE).style('fill', function (d) {
+    return "translate(".concat(i % 3 * (LEGEND_RECT_SIZE + LEGEND_ELEM_SPACING), ", ").concat(Math.floor(i / 3) * LEGEND_ROW_SPACING, ")");
+  });
+  legendElement.append('rect').attr('width', LEGEND_RECT_SIZE).attr('height', LEGEND_RECT_SIZE).attr('class', 'legend-item').style('fill', function (d) {
     return colors[categories.indexOf(d)];
-  }).append('text').attr('x', LEGEND_TEXT_OFFSET_X).attr('y', LEGEND_TEXT_OFFSET_Y).text(function (d) {
+  });
+  legendElement.append('text').attr('x', LEGEND_RECT_SIZE + LEGEND_TEXT_OFFSET_X).attr('y', LEGEND_RECT_SIZE + LEGEND_TEXT_OFFSET_Y).attr('fill', 'white').text(function (d) {
     return d;
   });
 });
