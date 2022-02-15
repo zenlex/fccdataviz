@@ -6,7 +6,7 @@ const dataUrl = 'https://raw.githubusercontent.com/freeCodeCamp/ProjectReference
 
 // create svg
 
-const width = 1000; // change this width/height to be responsive
+const width = 1000;
 const height = 600;
 const padding = 60;
 

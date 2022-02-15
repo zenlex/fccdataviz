@@ -4,8 +4,8 @@
   box-sizing: border-box;
 }
 
-header{
-  padding-top:10px;
+header {
+  margin: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,25 +13,27 @@ header{
   text-align: center;
 }
 
-.graph-container{
-  position:relative;
-  padding: 10px;
+.graph-container {
+  position: relative;
+  padding: 70px;
   margin: 0 auto;
-  box-shadow: 1px 1px 10px rgba(0,0,0,0.25);
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.25);
 }
 
 #legend {
   font-size: medium;
 }
 
-.legend-label{
-  text-anchor:end;
+.legend-label {
+  text-anchor: end;
 }
 
-#tooltip{
-  padding: 5px;
-  display:flex;
+#tooltip {
+  padding: 10px;
+  display: flex;
   flex-direction: column;
-  background-color: grey;
-  position:absolute;
+  background-color: lightgrey;
+  position: absolute;
+  border-radius: 10px;
+  transition: opacity .5s;
 }

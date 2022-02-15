@@ -1,10 +1,12 @@
+/* eslint-disable prefer-arrow-callback */
 /* eslint-disable import/no-unresolved */
 import * as d3 from 'd3';
+import d3Tip from 'd3-tip';
 import '../style/scatter.css';
 
 // set svg parameters
-const w = 800;
-const h = 800;
+const w = 1000;
+const h = 500;
 const padding = 60;
 
 const graph = d3.select('.graph-container')
@@ -18,7 +20,7 @@ const url = 'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData
 // render graph
 function updateGraph(data) {
   // dot radius
-  const r = 5;
+  const r = 7;
 
   // create scales//
   const years = [];
@@ -36,10 +38,12 @@ function updateGraph(data) {
   yScale.domain([d3.min(seconds), d3.max(seconds).setSeconds(d3.max(seconds).getSeconds() + 5)]);
   const yAxis = d3.axisLeft(yScale);
 
-  const tip = d3.select('.graph-container').append('div')
+  const tip = d3Tip().html((d) => d)
     .attr('id', 'tooltip')
-    .style('opacity', 0);
+    .style('opacity', 0)
+    .offset([-10, 100]);
 
+  graph.call(tip);
   // render data
   graph.selectAll('circle')
     .data(data)
@@ -52,15 +56,15 @@ function updateGraph(data) {
     .attr('data-yvalue', (d, i) => seconds[i])
     .style('fill', (d) => `${d.Doping ? 'red' : 'blue'}`)
     .attr('class', 'dot')
-    .on('mouseover', (e, d) => {
+    .on('mouseover', function showTip(e, d) {
+      // debugger;
+      const tipstr = `<h4>${d.Name}</h4><h4>Time:${d.Time}</h4><h4>Year:${d.Year}</h4><h4>Place: ${d.Place}</h4><h4>Nationality: ${d.Nationality}</h4><a href=${d.URL}> <h4>${d.Doping}</h4></a>`;
       tip.attr('data-year', d.Year)
         .style('left', `${e.clientX + 5}px`).style('top', `${e.clientY}px`);
-      tip.transition().duration(100).style('opacity', 0.9);
-      tip.html(`<h4>${d.Name}</h4><h4>Time:${d.Time}</h4><h4>Year:${d.Year}</h4><h4>Place: ${d.Place}</h4><h4>Nationality: ${d.Nationality}</h4><a href=${d.URL}> <h4>${d.Doping}</h4></a>`);
+      tip.show(tipstr, this);
     })
-    .on('mouseout', () => {
-      tip.transition().duration(200).style('opacity', 0);
-    });
+    // TODO: this doesn't work right - would like a delayed hide of tooltip
+    .on('mouseout', setTimeout(tip.hide(), 1000));
 
   // append axes
   graph.append('g').attr('id', 'x-axis')

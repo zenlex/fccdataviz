@@ -59,5 +59,7 @@ main {
 
 .tooltip {
   background-color: darkgray;
+  padding: 10px;
   position: absolute;
+  border-radius: 5px;
 }
