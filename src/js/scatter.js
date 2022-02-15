@@ -43,6 +43,8 @@ function updateGraph(data) {
     .style('opacity', 0)
     .offset([-10, 100]);
 
+  let tipTimer;
+
   graph.call(tip);
   // render data
   graph.selectAll('circle')
@@ -58,13 +60,16 @@ function updateGraph(data) {
     .attr('class', 'dot')
     .on('mouseover', function showTip(e, d) {
       // debugger;
+      if (tipTimer) { clearTimeout(tipTimer); }
       const tipstr = `<h4>${d.Name}</h4><h4>Time:${d.Time}</h4><h4>Year:${d.Year}</h4><h4>Place: ${d.Place}</h4><h4>Nationality: ${d.Nationality}</h4><a href=${d.URL}> <h4>${d.Doping}</h4></a>`;
       tip.attr('data-year', d.Year)
         .style('left', `${e.clientX + 5}px`).style('top', `${e.clientY}px`);
       tip.show(tipstr, this);
     })
-    // TODO: this doesn't work right - would like a delayed hide of tooltip
-    .on('mouseout', setTimeout(tip.hide(), 1000));
+    .on('mouseout', function tipHide(event) {
+      const { target } = event;
+      tipTimer = setTimeout(() => tip.hide(target), 2000);
+    });
 
   // append axes
   graph.append('g').attr('id', 'x-axis')
